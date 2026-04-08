@@ -1,5 +1,5 @@
 # Main Entry Point for AI Lab Mid - Instructor: Tooba Tehreem
-# Authored by: Bilal Abdullah | Registration: FA24-BCS-081
+# Bilal Abdullah | Registration: FA24-BCS-081
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -10,7 +10,6 @@ from injection_detector import check_prompt_injection
 app = Flask(__name__)
 CORS(app) 
 
-# Dynamic Config 
 current_config = {
     "block_threshold": 60,
     "mask_threshold": 30
@@ -27,7 +26,7 @@ def home():
 @app.route("/config", methods=['POST'])
 def update_config():
     data = request.get_json()
-    # Frontend se sliders ki value le kar update karna
+    
     current_config["block_threshold"] = data.get("injection_block_threshold", 60)
     current_config["mask_threshold"] = data.get("injection_mask_threshold", 30)
     return jsonify({"status": "updated", "config": current_config})
@@ -41,10 +40,8 @@ def analyze():
     if not prompt:
         return jsonify({"error": "No input received"}), 400
 
-    # Step 1: Injection Check (Using dynamic threshold)
     inj_data = check_prompt_injection(prompt, threshold=current_config["block_threshold"])
 
-    # Step 2: PII Anonymization
     pii_data = hide_sensitive_data(prompt)
 
     total_latency = round((time.time() - overall_start) * 1000, 2)
