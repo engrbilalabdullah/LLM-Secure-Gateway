@@ -30,7 +30,6 @@
     padding: 24px;
   }
 
-  /* ── Header ── */
   header {
     display: flex; align-items: center; gap: 14px;
     margin-bottom: 28px;
@@ -51,8 +50,6 @@
     font-size: 11px; font-weight: 600; padding: 4px 10px;
     border-radius: 20px; letter-spacing: .5px;
   }
-
-  /* ── Layout ── */
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 
@@ -67,8 +64,6 @@
     text-transform: uppercase; letter-spacing: .8px;
     margin-bottom: 14px;
   }
-
-  /* ── Input area ── */
   .full { grid-column: 1 / -1; }
 
   textarea {
@@ -103,8 +98,7 @@
   .threshold-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
   .threshold-row input[type=range] { width: 100px; accent-color: var(--accent); }
   .threshold-row span { min-width: 24px; font-weight: 600; color: var(--text); }
-
-  /* ── Result banner ── */
+  
   .banner {
     display: none; border-radius: 10px; padding: 14px 18px;
     font-size: 14px; font-weight: 500; margin-top: 14px;
@@ -115,7 +109,6 @@
   .banner.MASK   { background: rgba(245,158,11,.1); border-color: rgba(245,158,11,.3); color: #fcd34d; }
   .banner.BLOCK  { background: rgba(239,68,68,.1);  border-color: rgba(239,68,68,.3);  color: #fca5a5; }
 
-  /* ── Metrics ── */
   .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .metric {
     background: var(--surface2); border-radius: 8px; padding: 14px 12px; text-align: center;
@@ -126,7 +119,7 @@
   .val.medium { color: var(--yellow); }
   .val.high   { color: var(--red); }
 
-  /* ── Score bar ── */
+ 
   .score-bar-wrap { margin: 10px 0; }
   .score-bar-track {
     height: 8px; background: var(--surface2); border-radius: 99px; overflow: hidden;
@@ -137,7 +130,6 @@
     width: 0%; transition: width .6s ease, background .4s;
   }
 
-  /* ── Entity list ── */
   .entity-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
   .entity-tag {
     background: var(--surface2); border: 1px solid var(--border);
@@ -148,40 +140,34 @@
   .entity-tag .etext { color: var(--text); }
   .entity-tag .escore { color: var(--muted); font-size: 11px; }
 
-  /* ── Composite flags ── */
   .composite-tag {
     background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3);
     border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600;
     color: #fca5a5;
   }
-
-  /* ── Output text ── */
   .output-box {
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 8px; padding: 14px; font-size: 13px;
     font-family: monospace; white-space: pre-wrap; word-break: break-word;
     min-height: 60px; color: var(--text); margin-top: 8px;
   }
-
-  /* ── Flags ── */
+  
   .flag { display: inline-block; margin: 3px 4px 3px 0;
     background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3);
     color: #fcd34d; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
 
-  /* ── Loader ── */
   .loader { display: none; width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,.2);
     border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
   .loader.show { display: inline-block; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── Latency pill ── */
   .latency-pill {
     margin-left: auto; background: var(--surface2); border: 1px solid var(--border);
     border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--muted);
   }
   .latency-pill span { color: var(--text); font-weight: 600; }
 
-  /* ── Sample buttons ── */
+
   .samples { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   .sample-btn {
     background: var(--surface2); border: 1px solid var(--border);
@@ -202,7 +188,6 @@
   <div class="badge">v1.0</div>
 </header>
 
-<!-- ── Input Panel ── -->
 <div style="margin-bottom:20px;">
   <div class="card full">
     <h2>Input</h2>
@@ -243,10 +228,9 @@
   </div>
 </div>
 
-<!-- ── Result Grid ── -->
 <div class="grid">
 
-  <!-- Injection Detection -->
+
   <div class="card">
     <h2>🎯 Injection Detection</h2>
     <div class="metric-grid">
@@ -275,7 +259,6 @@
     </div>
   </div>
 
-  <!-- PII Detection -->
   <div class="card">
     <h2>🔒 PII Detection</h2>
     <div class="metric-grid">
@@ -302,7 +285,6 @@
     </div>
   </div>
 
-  <!-- Output -->
   <div class="card">
     <h2>📤 Gateway Output</h2>
     <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">
@@ -311,7 +293,6 @@
     <div class="output-box" id="output-text">—</div>
   </div>
 
-  <!-- Total Latency / Policy -->
   <div class="card">
     <h2>⚡ Performance</h2>
     <div class="metric-grid">
@@ -376,7 +357,6 @@ async function analyze() {
   const blockT = parseInt(document.getElementById('blockSlider').value);
   const maskT  = parseInt(document.getElementById('maskSlider').value);
 
-  // Update thresholds
  await fetch('http://127.0.0.1:5000/config', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -405,12 +385,11 @@ async function analyze() {
 }
 
 function renderResults(d) {
-  // Banner
+  
   const banner = document.getElementById('banner');
   banner.className = `banner show ${d.action}`;
   banner.textContent = d.message;
 
-  // Injection
   const score = d.injection.score;
   const risk  = d.injection.risk_level;
   const riskClass = risk === 'HIGH' ? 'high' : risk === 'MEDIUM' ? 'medium' : 'low';
@@ -432,7 +411,7 @@ function renderResults(d) {
     flagsEl.innerHTML = '<span style="font-size:12px;color:var(--muted);">None detected</span>';
   }
 
-  // PII
+
   document.getElementById('pii-count').textContent = d.pii.entity_count;
   document.getElementById('pii-count').className   = `val ${d.pii.entity_count > 0 ? 'medium' : 'low'}`;
   document.getElementById('pii-comp').textContent  = d.pii.composite_flags.length;
@@ -461,7 +440,6 @@ function renderResults(d) {
     compEl.innerHTML = '<span style="font-size:12px;color:var(--muted);">None</span>';
   }
 
-  // Output
   const outEl = document.getElementById('output-text');
   if (d.action === 'BLOCK') {
     outEl.textContent = '[Request blocked — no output forwarded to LLM]';
@@ -470,16 +448,13 @@ function renderResults(d) {
     outEl.textContent = d.output_text || '—';
     outEl.style.color = '';
   }
-
-  // Performance
+  
   document.getElementById('total-lat').textContent   = d.total_latency_ms.toFixed(1);
   const policyEl = document.getElementById('policy-action');
   policyEl.textContent = d.action;
   policyEl.className   = `val ${d.action === 'ALLOW' ? 'low' : d.action === 'MASK' ? 'medium' : 'high'}`;
   document.getElementById('policy-reason').textContent = d.message.replace(/^[^\s]+\s/, '');
 }
-
-// Submit on Ctrl+Enter
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && e.key === 'Enter') analyze();
 });
