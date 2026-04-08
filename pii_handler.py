@@ -1,5 +1,3 @@
-# PII Handler - Presidio Customization for CUI Wah
-# Student: Muhammad Bilal Abdullah [FA24-BCS-081]
 
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
@@ -7,18 +5,14 @@ import time
 
 analyzer = AnalyzerEngine()
 anonymizer = AnonymizerEngine()
-
-# Customization 1: OpenAI/API Keys [cite: 28]
 api_pattern = Pattern(name="api_key", regex="sk-[a-zA-Z0-9]{32,}", score=0.95)
 api_rec = PatternRecognizer(supported_entity="API_KEY", patterns=[api_pattern])
 analyzer.registry.add_recognizer(api_rec)
 
-# Customization 2: Pakistani Phone (Local Context) [cite: 28]
 phone_pattern = Pattern(name="pk_phone", regex=r"(\+92|0)[3][0-9]{2}-?[0-9]{7}", score=0.85)
 phone_rec = PatternRecognizer(supported_entity="PK_PHONE", patterns=[phone_pattern])
 analyzer.registry.add_recognizer(phone_rec)
 
-# Customization 3: COMSATS Student ID (Specific to user: FA24-BCS-081) [cite: 28]
 id_pattern = Pattern(name="student_id", regex=r"[A-Z]{2}\d{2}-[A-Z]{3}-\d{3}", score=1.0)
 id_rec = PatternRecognizer(supported_entity="STUDENT_ID", patterns=[id_pattern])
 analyzer.registry.add_recognizer(id_rec)
@@ -43,8 +37,6 @@ def hide_sensitive_data(user_text):
         if entity_name == "STUDENT_ID": has_id = True
         if entity_name == "PK_PHONE": has_phone = True
 
-    # Composite Entity Detection 
-    # Agar Phone aur ID dono hon, toh ye high-risk user identification hai
     composite_flags = []
     if has_id and has_phone:
         composite_flags.append("USER_IDENTITY_EXPOSURE")
